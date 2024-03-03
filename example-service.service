@@ -1,0 +1,24 @@
+[Unit]
+Description=Example Server Service
+Wants=network.target
+Wants=serverd.service
+
+[Service]
+User=serverd
+Group=servermod
+Type=oneshot
+RemainAfterExit=true
+
+ProtectHome=true
+ProtectSystem=full
+PrivateDevices=true
+NoNewPrivileges=true
+InaccessibleDirectories=/root /sys /srv -/opt /media -/lost+found
+ReadWriteDirectories=/usr/servers
+WorkingDirectory=/usr/servers/hooks/
+ExecStartPre=/bin/sleep 1
+ExecStart=/usr/servers/hooks/startup/example.sh
+ExecStop=/usr/servers/hooks/shutdown/example.sh
+
+[Install]
+WantedBy=multi-user.target

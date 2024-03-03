@@ -50,6 +50,11 @@ chmod 770 /usr/servers/hooks/shutdown/example.sh
 
 echo "Creating /usr/servers/hooks/systemd/example.service file"
 echo "Edit then copy or symlink this file to /etc/systemd/system/ when ready"
+mkdir /usr/servers/hooks/systemd
+cp example-service.service /usr/servers/hooks/systemd/example.service
 
 echo "Creating /usr/servers/serverFiles/ for server files to be stored at"
+echo "Feel free to move this folder to a different name"
 mkdir /usr/servers/serverFiles
+
+echo "Setup complete"
