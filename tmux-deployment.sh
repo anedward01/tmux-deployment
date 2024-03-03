@@ -20,11 +20,8 @@ groupadd servermod
 echo "Adding serverd to servermod group"
 usermod -aG servermod serverd
 
-echo "Chowning /usr/servers to serverd"
-chown -R serverd:servermod /usr/servers
-
 echo "Creating TMUX socket"
-tmux -S /usr/servers/Server
+echo $'\cb d' | tmux -S /usr/servers/Server
 
 echo "Owning TMUX socket to serverd user and setting permissions to 770"
 chown serverd:servermod /usr/servers/Server
@@ -56,5 +53,16 @@ cp example-service.service /usr/servers/hooks/systemd/example.service
 echo "Creating /usr/servers/serverFiles/ for server files to be stored at"
 echo "Feel free to move this folder to a different name"
 mkdir /usr/servers/serverFiles
+
+echo "Chowning /usr/servers to serverd"
+chown -R serverd:servermod /usr/servers
+
+echo "Enabling serverd.service"
+systemctl enable serverd.service
+
+echo "Running serverd.service"
+systemctl start serverd.service
+
+echo "Verify serverd.service did not error out manually!"
 
 echo "Setup complete"
